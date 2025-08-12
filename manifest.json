@@ -1,9 +1,1 @@
-{
-  "name": "QFM Peg Settings",
-  "short_name": "QFM Peg",
-  "start_url": ".",
-  "display": "standalone",
-  "background_color": "#f0f0f0",
-  "theme_color": "#4CAF50",
-  "icons": []
-}
+{ "name": "Detergent Concentration Tool", "start_url": ".", "display": "standalone" }

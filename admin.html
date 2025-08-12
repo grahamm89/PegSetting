@@ -1,78 +1,32 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>PegSetting — Admin</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body{font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#f6f8fb;margin:0;padding:20px}
-    .wrap{max-width:900px;margin:20px auto;background:#fff;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.06);padding:20px}
-    h1{margin:0 0 10px}
-    textarea{width:100%;height:420px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;border:1px solid #e5e7eb;border-radius:10px;padding:12px}
-    .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0}
-    button,select{padding:10px 12px;border-radius:8px;border:1px solid #d1d5db;font-size:14px}
-    .primary{background:#0ea5a0;border-color:#0ea5a0;color:#fff}
-  </style>
+<meta charset="UTF-8">
+<title>Admin - PegSetting</title>
+<style>
+  body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; }
+  textarea { width: 100%; height: 300px; }
+  button { padding: 10px 20px; margin-top: 10px; }
+</style>
 </head>
 <body>
+<h1>Admin Panel</h1>
+<textarea id="editor"></textarea><br>
+<button onclick="save()">Download JSON</button>
 <script>
-  const pass = prompt("Enter admin password:");
-  if (pass !== "apex-admin") {
-    alert("Access denied");
-    window.location.href = "index.html";
-  }
-</script>
-<div class="wrap">
-  <h1>PegSetting — Admin</h1>
-  <div class="row">
-    <label for="fileSel"><b>JSON file</b></label>
-    <select id="fileSel"></select>
-    <button id="loadBtn">Load</button>
-    <button id="downloadBtn" class="primary">Download</button>
-  </div>
-  <textarea id="editor"></textarea>
-</div>
-<script>
-async function listJson() {
-  // naive discover: try common data files; adjust as needed
-  const candidates = ['data.json','tools.json','config.json'];
-  const found = [];
-  for (const p of candidates) {
-    try {
-      const r = await fetch(p + '?v=' + Date.now(), {cache:'no-cache'});
-      if (r.ok) found.push(p);
-    } catch(_) {}
-  }
-  return found.length ? found : candidates;
-}
-
-(async function init(){
-  const sel = document.getElementById('fileSel');
-  const list = await listJson();
-  for (const p of list) {
-    const opt = document.createElement('option');
-    opt.value = opt.textContent = p;
-    sel.appendChild(opt);
-  }
-})();
-
-document.getElementById('loadBtn').addEventListener('click', async () => {
-  const file = document.getElementById('fileSel').value;
-  const r = await fetch(file + '?v=' + Date.now(), {cache:'no-cache'});
-  const txt = await r.text();
-  document.getElementById('editor').value = txt;
+const pass = prompt('Enter admin password:');
+if (pass !== 'apex-admin') { document.body.innerHTML = '<h2>Access Denied</h2>'; throw new Error('Bad password'); }
+fetch('data.json').then(r => r.json()).then(data => {
+  document.getElementById('editor').value = JSON.stringify(data, null, 2);
 });
-
-document.getElementById('downloadBtn').addEventListener('click', () => {
-  const file = document.getElementById('fileSel').value || 'data.json';
-  const blob = new Blob([document.getElementById('editor').value], {type:'application/json'});
-  const url = URL.createObjectURL(blob);
+function save(){
+  const blob = new Blob([document.getElementById('editor').value], {type: 'application/json'});
   const a = document.createElement('a');
-  a.href = url; a.download = file;
-  document.body.appendChild(a); a.click(); a.remove();
-  URL.revokeObjectURL(url);
-});
+  a.href = URL.createObjectURL(blob);
+  a.download = 'data.json';
+  a.click();
+}
 </script>
 </body>
 </html>
