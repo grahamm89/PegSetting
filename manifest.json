@@ -1,1 +1,10 @@
-{ "name": "Detergent Concentration Tool", "start_url": ".", "display": "standalone" }
+
+{
+  "name": "PegSetting",
+  "short_name": "PegSetting",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f7f8fb",
+  "theme_color": "#0ea5a0",
+  "icons": []
+}

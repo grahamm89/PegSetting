@@ -1,32 +1,55 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Admin - PegSetting</title>
-<style>
-  body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; }
-  textarea { width: 100%; height: 300px; }
-  button { padding: 10px 20px; margin-top: 10px; }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PegSetting — Admin</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-<h1>Admin Panel</h1>
-<textarea id="editor"></textarea><br>
-<button onclick="save()">Download JSON</button>
+  <main class="wrap">
+    <h1>Admin Editor</h1>
+    <p class="muted">Password protected. Edit JSON then download and upload to GitHub.</p>
+    <div class="card">
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px">
+        <label for="fileSel"><strong>JSON file</strong></label>
+        <select id="fileSel"></select>
+        <button id="loadBtn">Load</button>
+        <button id="downloadBtn">Download</button>
+      </div>
+      <textarea id="editor" style="width:100%;height:420px;border:1px solid #e5e7eb;border-radius:12px;padding:12px;font-family:ui-monospace,Menlo,Consolas,monospace"></textarea>
+    </div>
+  </main>
 <script>
-const pass = prompt('Enter admin password:');
-if (pass !== 'apex-admin') { document.body.innerHTML = '<h2>Access Denied</h2>'; throw new Error('Bad password'); }
-fetch('data.json').then(r => r.json()).then(data => {
-  document.getElementById('editor').value = JSON.stringify(data, null, 2);
-});
-function save(){
-  const blob = new Blob([document.getElementById('editor').value], {type: 'application/json'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'data.json';
-  a.click();
-}
+  const pass = prompt("Enter admin password:");
+  if (pass !== "apex-admin") { alert("Access denied"); location.href = "index.html"; }
+  async function probeJson(paths){
+    const found = [];
+    for (const p of paths){
+      try { const r = await fetch(p + '?v=' + Date.now(), {cache:'no-cache'}); if (r.ok) found.push(p); } catch {}
+    }
+    return found.length ? found : paths;
+  }
+  (async function init(){
+    const candidates = ['data.json','tools.json','config.json'];
+    const list = await probeJson(candidates);
+    const sel = document.getElementById('fileSel');
+    for (const p of list){ const o=document.createElement('option'); o.value=o.textContent=p; sel.appendChild(o); }
+  })();
+  document.getElementById('loadBtn').addEventListener('click', async () => {
+    const file = document.getElementById('fileSel').value;
+    const r = await fetch(file + '?v=' + Date.now(), {cache:'no-cache'});
+    const txt = await r.text();
+    document.getElementById('editor').value = txt;
+  });
+  document.getElementById('downloadBtn').addEventListener('click', () => {
+    const file = document.getElementById('fileSel').value || 'data.json';
+    const blob = new Blob([document.getElementById('editor').value], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = file; a.click();
+    URL.revokeObjectURL(url);
+  });
 </script>
 </body>
 </html>

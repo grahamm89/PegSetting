@@ -1,1 +1,29 @@
-<!-- Main app HTML -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PegSetting</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <main class="wrap">
+    <h1>PegSetting</h1>
+    <p class="muted">Deployed successfully. This build includes a quiet PWA, auto‑update service worker, and a hidden admin page.</p>
+    <section id="status" class="card">
+      <h2>Status</h2>
+      <ul>
+        <li>Service Worker: <span id="swState">checking…</span></li>
+        <li>Last updated: <span id="stamp"></span></li>
+      </ul>
+    </section>
+    <section class="card">
+      <h2>How to edit data</h2>
+      <p>Double‑tap <kbd>E</kbd> to open the admin editor (password: <code>apex-admin</code>). Download the updated JSON and upload it to GitHub.</p>
+    </section>
+  </main>
+  <script src="js/app.js"></script>
+</body>
+</html>
