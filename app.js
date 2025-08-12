@@ -121,3 +121,28 @@ if (dismissInstall) dismissInstall.addEventListener('click', () => {
 })();
 
 loadData();
+// ---- PegSetting: auto-refresh when new Service Worker activates ----
+(function(){
+  if (!('serviceWorker' in navigator)) return;
+  let hasRefreshed = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (hasRefreshed) return;
+    hasRefreshed = true;
+    window.location.reload();
+  });
+  navigator.serviceWorker.addEventListener('message', (event) => {
+    const data = event && event.data;
+    if (data && data.type === 'SW_ACTIVATED_RELOAD' && !hasRefreshed) {
+      hasRefreshed = true;
+      window.location.reload();
+    }
+  });
+})();
+
+// ---- PegSetting: helper to fetch JSON with cache-buster ----
+async function fetchJsonFresh(path){
+  const res = await fetch(path + (path.includes('?') ? '&' : '?') + 'v=' + Date.now(), { cache: 'no-cache' });
+  if (!res.ok) throw new Error('HTTP ' + res.status + ' for ' + path);
+  return res.json();
+}
+// Replace your old fetch('data.json') with:  const data = await fetchJsonFresh('data.json');
