@@ -1,45 +1,23 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>QFM Peg Settings — Dilution Calculator</title>
+  <title>QFM Peg Settings</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <div class="container">
-    <h1>QFM Peg Settings</h1>
-    <p style="text-align:center;color:#666;margin:0 0 10px;">Select a Product, Application Method, and Pressure</p>
-
-    <div id="installBanner" class="banner" style="display:none;">
-      <span>📲 <span id="installText">Install this app</span></span>
-      <button id="installBtn">Install</button>
-      <button id="dismissInstall">✖</button>
-    </div>
-    <div id="iosTip" style="display:none;margin-top:8px;background:#fff4e6;border:1px solid #ffd8a8;color:#7c4400;padding:10px 12px;border-radius:10px;">
-      <strong>Tip (iOS):</strong> Tap <em>Share</em> → <strong>Add to Home Screen</strong> to install.
-    </div>
-    <div id="macSafariTip" style="display:none;margin-top:8px;background:#eef6ff;border:1px solid #b6daff;color:#004085;padding:10px 12px;border-radius:10px;">
-      <strong>Tip (Safari on Mac):</strong> Go to <em>File → Add to Dock</em> or <em>Share → Add to Dock</em> to install.
-    </div>
-    <div id="errorBanner" style="display:none;margin-top:10px;background:#fdecea;border:1px solid #f5c2c0;color:#7a1c1a;padding:10px 12px;border-radius:10px;"></div>
-
+    <h1>Dilution Calculator</h1>
     <label for="product">Product:</label>
     <select id="product"></select>
-
     <label for="method">Application Method:</label>
     <select id="method"></select>
-
     <label for="pressure">Pressure:</label>
     <select id="pressure"></select>
-
     <div id="result">Select options to see result.</div>
-
-    <footer style="margin-top:18px;text-align:center;color:#666;">Offline ready.</footer>
   </div>
-
-  <script src="app.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>

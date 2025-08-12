@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin - QFM Peg Settings</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<script>
+const pass = prompt("Enter admin password:");
+if(pass !== "apex-admin"){
+  alert("Access denied");
+  window.location.href = "index.html";
+}
+</script>
+<h1>Admin Editor</h1>
+<p>Here you can edit data.json manually and upload to GitHub.</p>
+<textarea id="editor" style="width:100%;height:300px;"></textarea>
+<button id="download">Download data.json</button>
+<script>
+fetch('data.json?v=' + Date.now()).then(r=>r.json()).then(data => {
+  document.getElementById('editor').value = JSON.stringify(data, null, 2);
+});
+document.getElementById('download').addEventListener('click', () => {
+  const blob = new Blob([document.getElementById('editor').value], {type: 'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'data.json';
+  a.click();
+  URL.revokeObjectURL(url);
+});
+</script>
+</body>
+</html>
