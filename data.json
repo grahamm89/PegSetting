@@ -1,3 +1,58 @@
 [
-  {"Product":"Suma Break up D3.5","Method":"Trigger Spray","Pressure":"1.5 bar","PEG":"K","Dilution":2.5}
+  {
+    "Product": "Suma Break up D3.5",
+    "Method": "Trigger Spray",
+    "Pressure": "1.5 bar",
+    "PEG": "K",
+    "Dilution": 2.5
+  },
+  {
+    "Product": "Suma Break up D3.5",
+    "Method": "Trigger Spray",
+    "Pressure": "2.5 bar",
+    "PEG": "J",
+    "Dilution": 3
+  },
+  {
+    "Product": "Suma Break up D3.5",
+    "Method": "Bucket",
+    "Pressure": "1.5 bar",
+    "PEG": "I",
+    "Dilution": 2
+  },
+  {
+    "Product": "Suma Break up D3.5",
+    "Method": "Bucket",
+    "Pressure": "2.5 bar",
+    "PEG": "J",
+    "Dilution": 2.5
+  },
+  {
+    "Product": "Suma Bac D10",
+    "Method": "Trigger Spray",
+    "Pressure": "1.5 bar",
+    "PEG": "M",
+    "Dilution": 1.5
+  },
+  {
+    "Product": "Suma Bac D10",
+    "Method": "Trigger Spray",
+    "Pressure": "2.5 bar",
+    "PEG": "M",
+    "Dilution": 1.5
+  },
+  {
+    "Product": "Suma Bac D10",
+    "Method": "Bucket",
+    "Pressure": "1.5 bar",
+    "PEG": "K",
+    "Dilution": 1
+  },
+  {
+    "Product": "Suma Bac D10",
+    "Method": "Bucket",
+    "Pressure": "2.5 bar",
+    "PEG": "K",
+    "Dilution": 1.3
+  }
 ]
