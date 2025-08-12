@@ -1,39 +1,42 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Peg Setting Calculator</title>
+  <meta charset="UTF-8">
+  <title>QFM Peg Settings</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div id="app">
-    <h1>Peg Setting Calculator</h1>
+  <div class="container">
+    <h1>Dilution Calculator</h1>
     <label for="product">Product:</label>
     <select id="product"></select>
-
     <label for="method">Application Method:</label>
     <select id="method"></select>
-
     <label for="pressure">Pressure:</label>
     <select id="pressure"></select>
-
     <div id="result">Select options to see result.</div>
   </div>
 
-  <!-- Admin Modal (hidden by default) -->
-  <div id="adminModal" style="display:none;">
-    <div class="modal-content">
-      <h2>Edit Data</h2>
-      <textarea id="dataEditor" style="width:100%;height:200px;"></textarea><br>
-      <button id="saveData">Save</button>
-      <button id="closeAdmin">Close</button>
+  <div id="adminOverlay" class="overlay" style="display:none;">
+    <div class="modal">
+      <h2>Edit data.json</h2>
+      <textarea id="dataEditor"></textarea>
+      <div class="actions">
+        <button id="applyPreview">Apply (preview)</button>
+        <button id="downloadData">Download data.json</button>
+        <button id="closeAdmin">Close</button>
+      </div>
+      <p class="hint">Changes update your local preview only. Use Download to save and upload to GitHub.</p>
     </div>
   </div>
 
-  <script src="js/app.js"></script>
-  <script src="js/admin.js"></script>
-  <script src="js/pwa.js"></script>
+  <footer>Offline ready. <span id="stamp"></span></footer>
+
+  <script defer src="js/app.js"></script>
+  <script defer src="js/admin.js"></script>
+  <script defer src="js/pwa.js"></script>
 </body>
 </html>
