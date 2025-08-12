@@ -1,17 +1,52 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Dilution Calculator</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="manifest" href="manifest.json">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dilution Calculator</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-<h1>Dilution Calculator</h1>
-<select id="product"></select>
-<select id="method"></select>
-<select id="pressure"></select>
-<div id="result">Select options to see result.</div>
-<script src="app.js"></script>
+  <div class="container">
+    <div class="card">
+      <h1>Dilution Calculator</h1>
+      <label for="product">Product:</label>
+      <select id="product"></select>
+      <label for="method">Application Method:</label>
+      <select id="method"></select>
+      <label for="pressure">Pressure:</label>
+      <select id="pressure"></select>
+      <div id="result">Select options to see result.</div>
+      <footer>Offline ready. <span id="stamp"></span></footer>
+    </div>
+  </div>
+
+  <div id="adminOverlay" class="overlay">
+    <div class="modal">
+      <div class="toolbar">
+        <button id="uploadBtn">Upload JSON</button>
+        <input id="uploadInput" type="file" accept="application/json" style="display:none">
+        <button id="addRow">Add Row</button>
+        <button id="newVersion">New Version</button>
+        <button id="downloadData" class="primary">Download JSON</button>
+        <button id="closeAdmin">Close</button>
+      </div>
+      <div class="table-wrap">
+        <table id="dataTable">
+          <thead>
+            <tr><th>Product</th><th>Method</th><th>Pressure</th><th>PEG</th><th>Dilution</th><th>Del</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="hint">Edits affect your local preview. Click <b>Download JSON</b>, then upload it to GitHub to publish.</p>
+    </div>
+  </div>
+
+  <script defer src="js/app.js"></script>
+  <script defer src="js/admin-inline.js"></script>
+  <script defer src="js/pwa.js"></script>
 </body>
 </html>

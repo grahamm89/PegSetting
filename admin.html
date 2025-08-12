@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin — Dilution Calculator</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>Admin — Edit data.json</h1>
+      <div id="loginBox">
+        <input type="password" id="password" placeholder="Password" />
+        <button id="loginBtn">Login</button>
+      </div>
+      <div id="adminBox" style="display:none">
+        <div class="toolbar">
+          <button id="uploadBtn">Upload JSON</button>
+          <input id="uploadInput" type="file" accept="application/json" style="display:none">
+          <button id="addRow">Add Row</button>
+          <button id="newVersion">New Version</button>
+          <button id="downloadData" class="primary">Download JSON</button>
+        </div>
+        <div class="table-wrap">
+          <table id="dataTable">
+            <thead>
+              <tr><th>Product</th><th>Method</th><th>Pressure</th><th>PEG</th><th>Dilution</th><th>Del</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="hint">After downloading, upload the file as <b>data.json</b> in GitHub and commit.</p>
+      </div>
+    </div>
+  </div>
+  <script src="js/admin-standalone.js"></script>
+</body>
+</html>
