@@ -5,23 +5,48 @@
   <title>QFM Peg Settings</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: #f0f0f0; margin: 0; padding: 20px; }
+    .container { max-width: 500px; margin: auto; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    h1 { text-align: center; color: #4CAF50; font-size: 1.8em; margin-bottom: 20px; }
+    label { display: block; margin-top: 15px; font-weight: 600; }
+    select { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 6px; font-size: 1em; }
+    #result { margin-top: 25px; padding: 15px; background: #e8f5e9; border-left: 5px solid #4CAF50; font-weight: bold; font-size: 1.1em; color: #333; border-radius: 6px; text-align: center; }
+    #adminOverlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); color: #000; overflow-y: auto; padding: 20px; }
+    #adminOverlay .admin-container { background: #fff; padding: 20px; border-radius: 8px; max-width: 800px; margin: auto; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    button { margin-top: 10px; padding: 8px 12px; }
+  </style>
 </head>
 <body>
   <div class="container">
     <h1>Dilution Calculator</h1>
-
     <label for="product">Product:</label>
     <select id="product"></select>
-
     <label for="method">Application Method:</label>
     <select id="method"></select>
-
     <label for="pressure">Pressure:</label>
     <select id="pressure"></select>
-
     <div id="result">Select options to see result.</div>
   </div>
-  <script src="js/app.js"></script>
+
+  <div id="adminOverlay">
+    <div class="admin-container">
+      <h2>Admin Editor</h2>
+      <table id="adminTable">
+        <thead>
+          <tr><th>Product</th><th>Method</th><th>Pressure</th><th>PEG</th><th>Dilution</th><th>Actions</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <button id="addRow">Add Row</button>
+      <button id="downloadData">Download Updated data.json</button>
+      <button onclick="document.getElementById('adminOverlay').style.display='none'">Close</button>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+  <script src="admin.js"></script>
 </body>
 </html>

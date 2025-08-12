@@ -2,29 +2,25 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Admin - Edit Data</title>
+<title>Admin Panel</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="css/style.css">
+<style>
+  body { font-family: Arial, sans-serif; padding: 20px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+  th, td { border: 1px solid #ccc; padding: 8px; }
+  button { margin-top: 10px; padding: 8px 12px; }
+</style>
 </head>
 <body>
-<div class="container" id="loginContainer">
-<h1>Admin Login</h1>
-<input type="password" id="password" placeholder="Password">
-<button onclick="login()">Login</button>
-</div>
-
-<div class="container" id="adminContainer" style="display:none;">
-<h1>Edit Data</h1>
-<table id="dataTable" border="1" cellpadding="5">
-<thead>
-<tr><th>Product</th><th>Method</th><th>Pressure</th><th>PEG</th><th>Dilution</th><th>Delete</th></tr>
-</thead>
-<tbody></tbody>
+<h2>Admin Editor</h2>
+<table id="adminTable">
+  <thead>
+    <tr><th>Product</th><th>Method</th><th>Pressure</th><th>PEG</th><th>Dilution</th><th>Actions</th></tr>
+  </thead>
+  <tbody></tbody>
 </table>
-<button onclick="addRow()">Add Row</button>
-<button onclick="downloadData()">Download Updated data.json</button>
-</div>
-
-<script src="js/admin.js"></script>
+<button id="addRow">Add Row</button>
+<button id="downloadData">Download Updated data.json</button>
+<script src="admin.js"></script>
 </body>
 </html>
