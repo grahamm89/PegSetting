@@ -1,8 +1,10 @@
+const CACHE_NAME = 'dilution-cache-v1';
+const urlsToCache = ['.', 'index.html', 'app.js', 'data.json', 'manifest.json'];
 
-const CACHE='dilution-tool-v1';
-self.addEventListener('install',e=>{
-  e.waitUntil(caches.open(CACHE).then(c=>c.addAll(['./','./index.html','./css/style.css','./js/app.js','./data.json'])));
+self.addEventListener('install', e => {
+  e.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache)));
 });
-self.addEventListener('fetch',e=>{
-  e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)));
+
+self.addEventListener('fetch', e => {
+  e.respondWith(caches.match(e.request).then(response => response || fetch(e.request)));
 });

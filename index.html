@@ -1,28 +1,17 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Dilution Calculator</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="css/style.css">
 <link rel="manifest" href="manifest.json">
 </head>
 <body>
-<div class="container">
 <h1>Dilution Calculator</h1>
-<label for="product">Product:</label><select id="product"></select>
-<label for="method">Application Method:</label><select id="method"></select>
-<label for="pressure">Pressure:</label><select id="pressure"></select>
+<select id="product"></select>
+<select id="method"></select>
+<select id="pressure"></select>
 <div id="result">Select options to see result.</div>
-</div>
-<div id="adminOverlay">
-<div id="adminPanel">
-<h2>Admin Panel</h2>
-<table border="1"><tbody id="adminTable"></tbody></table>
-<button onclick="document.getElementById('adminOverlay').style.display='none'">Close</button>
-</div>
-</div>
-<script src="js/app.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
