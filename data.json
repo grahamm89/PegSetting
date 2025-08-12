@@ -1,0 +1,310 @@
+[
+  {
+    "Product": "Suma Break up D3.5",
+    "Method": "Trigger Spray",
+    "Pressure": "1.5 bar",
+    "PEG": "K",
+    "Dilution": 2.5
+  },
+  {
+    "Product": "Suma Break up D3.5",
+    "Method": "Trigger Spray",
+    "Pressure": "2.5 bar",
+    "PEG": "J",
+    "Dilution": 3
+  },
+  {
+    "Product": "Suma Break up D3.5",
+    "Method": "Bucket",
+    "Pressure": "1.5 bar",
+    "PEG": "I",
+    "Dilution": 2
+  },
+  {
+    "Product": "Suma Break up D3.5",
+    "Method": "Bucket",
+    "Pressure": "2.5 bar",
+    "PEG": "J",
+    "Dilution": 2.5
+  },
+  {
+    "Product": "Suma Bac D10",
+    "Method": "Trigger Spray",
+    "Pressure": "1.5 bar",
+    "PEG": "M",
+    "Dilution": 1.5
+  },
+  {
+    "Product": "Suma Bac D10",
+    "Method": "Trigger Spray",
+    "Pressure": "2.5 bar",
+    "PEG": "M",
+    "Dilution": 1.5
+  },
+  {
+    "Product": "Suma Bac D10",
+    "Method": "Bucket",
+    "Pressure": "1.5 bar",
+    "PEG": "K",
+    "Dilution": 1
+  },
+  {
+    "Product": "Suma Bac D10",
+    "Method": "Bucket",
+    "Pressure": "2.5 bar",
+    "PEG": "K",
+    "Dilution": 1.3
+  },
+  {
+    "Product": "Suma Multi D2",
+    "Method": "Trigger Spray",
+    "Pressure": "1.5 bar",
+    "PEG": "K",
+    "Dilution": 2.5
+  },
+  {
+    "Product": "Suma Multi D2",
+    "Method": "Trigger Spray",
+    "Pressure": "2.5 bar",
+    "PEG": "K",
+    "Dilution": 2.5
+  },
+  {
+    "Product": "Suma Multi D2",
+    "Method": "Bucket",
+    "Pressure": "1.5 bar",
+    "PEG": "N",
+    "Dilution": 0.5
+  },
+  {
+    "Product": "Suma Multi D2",
+    "Method": "Bucket",
+    "Pressure": "2.5 bar",
+    "PEG": "M",
+    "Dilution": 0.6
+  },
+  {
+    "Product": "Suma Chlor D4.4",
+    "Method": "Bucket",
+    "Pressure": "1.5 bar",
+    "PEG": "N",
+    "Dilution": 0.4
+  },
+  {
+    "Product": "Suma Chlor D4.4",
+    "Method": "Bucket",
+    "Pressure": "2.5 bar",
+    "PEG": "N",
+    "Dilution": 0.6
+  },
+  {
+    "Product": "Actival",
+    "Method": "Bucket",
+    "Pressure": "1.5 bar",
+    "PEG": "L",
+    "Dilution": 1
+  },
+  {
+    "Product": "Actival",
+    "Method": "Bucket",
+    "Pressure": "2.5 bar",
+    "PEG": "L",
+    "Dilution": 1
+  },
+  {
+    "Product": "TASKI Sani 4 in 1",
+    "Method": "Trigger Spray",
+    "Pressure": "1.5 bar",
+    "PEG": "K",
+    "Dilution": 2.5
+  },
+  {
+    "Product": "TASKI Sani 4 in 1",
+    "Method": "Trigger Spray",
+    "Pressure": "2.5 bar",
+    "PEG": "K",
+    "Dilution": 2.5
+  },
+  {
+    "Product": "TASKI Sani 4 in 1",
+    "Method": "Bucket",
+    "Pressure": "1.5 bar",
+    "PEG": "L",
+    "Dilution": 1
+  },
+  {
+    "Product": "TASKI Sani 4 in 1",
+    "Method": "Bucket",
+    "Pressure": "2.5 bar",
+    "PEG": "L",
+    "Dilution": 1
+  },
+  {
+    "Product": "Goodsense Breakdown",
+    "Method": "Trigger Spray",
+    "Pressure": "1.5 bar",
+    "PEG": "E",
+    "Dilution": 10
+  },
+  {
+    "Product": "Goodsense Breakdown",
+    "Method": "Trigger Spray",
+    "Pressure": "2.5 bar",
+    "PEG": "E",
+    "Dilution": 10
+  },
+  {
+    "Product": "Goodsense Breakdown",
+    "Method": "Bucket",
+    "Pressure": "1.5 bar",
+    "PEG": "J",
+    "Dilution": 1.9
+  },
+  {
+    "Product": "Goodsense Breakdown",
+    "Method": "Bucket",
+    "Pressure": "2.5 bar",
+    "PEG": "J",
+    "Dilution": 1.9
+  },
+  {
+    "Product": "TASKI Sprint 200",
+    "Method": "Trigger Spray",
+    "Pressure": "1.5 bar",
+    "PEG": "F",
+    "Dilution": 7.7
+  },
+  {
+    "Product": "TASKI Sprint 200",
+    "Method": "Trigger Spray",
+    "Pressure": "2.5 bar",
+    "PEG": "F",
+    "Dilution": 8.3
+  },
+  {
+    "Product": "TASKI Sprint 200",
+    "Method": "Bucket",
+    "Pressure": "1.5 bar",
+    "PEG": "L",
+    "Dilution": 1
+  },
+  {
+    "Product": "TASKI Sprint 200",
+    "Method": "Bucket",
+    "Pressure": "2.5 bar",
+    "PEG": "L",
+    "Dilution": 1
+  },
+  {
+    "Product": "TASKI Sani 100",
+    "Method": "Trigger Spray",
+    "Pressure": "1.5 bar",
+    "PEG": "F",
+    "Dilution": 7.7
+  },
+  {
+    "Product": "TASKI Sani 100",
+    "Method": "Trigger Spray",
+    "Pressure": "2.5 bar",
+    "PEG": "F",
+    "Dilution": 8.3
+  },
+  {
+    "Product": "TASKI Sani 100",
+    "Method": "Bucket",
+    "Pressure": "1.5 bar",
+    "PEG": "L",
+    "Dilution": 1
+  },
+  {
+    "Product": "TASKI Sani 100",
+    "Method": "Bucket",
+    "Pressure": "2.5 bar",
+    "PEG": "L",
+    "Dilution": 1
+  },
+  {
+    "Product": "Jontec 300",
+    "Method": "Trigger Spray",
+    "Pressure": "1.5 bar",
+    "PEG": "F",
+    "Dilution": 8
+  },
+  {
+    "Product": "Jontec 300",
+    "Method": "Trigger Spray",
+    "Pressure": "2.5 bar",
+    "PEG": "F",
+    "Dilution": 8
+  },
+  {
+    "Product": "Jontec 300",
+    "Method": "Bucket",
+    "Pressure": "1.5 bar",
+    "PEG": "L",
+    "Dilution": 1
+  },
+  {
+    "Product": "Jontec 300",
+    "Method": "Bucket",
+    "Pressure": "2.5 bar",
+    "PEG": "L",
+    "Dilution": 1
+  },
+  {
+    "Product": "Jontec Tensol",
+    "Method": "Trigger Spray",
+    "Pressure": "1.5 bar",
+    "PEG": "F",
+    "Dilution": 8
+  },
+  {
+    "Product": "Jontec Tensol",
+    "Method": "Trigger Spray",
+    "Pressure": "2.5 bar",
+    "PEG": "F",
+    "Dilution": 8
+  },
+  {
+    "Product": "Jontec Tensol",
+    "Method": "Bucket",
+    "Pressure": "1.5 bar",
+    "PEG": "L",
+    "Dilution": 1
+  },
+  {
+    "Product": "Jontec Tensol",
+    "Method": "Bucket",
+    "Pressure": "2.5 bar",
+    "PEG": "L",
+    "Dilution": 1
+  },
+  {
+    "Product": "Jontec Best",
+    "Method": "Bucket",
+    "Pressure": "1.5 bar",
+    "PEG": "L",
+    "Dilution": 1
+  },
+  {
+    "Product": "Jontec Best",
+    "Method": "Bucket",
+    "Pressure": "2.5 bar",
+    "PEG": "L",
+    "Dilution": 1
+  },
+  {
+    "Product": "Jontec Forward",
+    "Method": "Bucket",
+    "Pressure": "1.5 bar",
+    "PEG": "J",
+    "Dilution": 2
+  },
+  {
+    "Product": "Jontec Forward",
+    "Method": "Bucket",
+    "Pressure": "2.5 bar",
+    "PEG": "J",
+    "Dilution": 2
+  }
+]
