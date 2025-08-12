@@ -43,3 +43,11 @@ document.addEventListener('keydown', (e) => {
     lastPress = now;
   }
 });
+let lastPress = 0;
+   document.addEventListener('keydown', (e) => {
+     if (e.key.toLowerCase() === 'e') {
+       const now = Date.now();
+       if (now - lastPress < 400) window.location.href = 'admin.html';
+       lastPress = now;
+     }
+   });
