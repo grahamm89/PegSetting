@@ -1,31 +1,34 @@
-
-// Stamp
-document.getElementById('stamp').textContent = new Date().toLocaleString();
-
-// Hidden admin access: double-tap 'E'
-(function(){
-  let last = 0;
-  document.addEventListener('keydown', (e) => {
-    if ((e.key || '').toLowerCase() === 'e'){
-      const now = Date.now();
-      if (now - last < 400) location.href = 'admin.html';
-      last = now;
-    }
+let pegData = [];
+async function loadData(){
+  const res = await fetch('data.json?cacheBust=' + Date.now());
+  pegData = await res.json();
+  populateSelects();
+}
+function populateSelect(selectId, values){
+  const sel = document.getElementById(selectId);
+  sel.innerHTML = '';
+  values.forEach(v=>{
+    const opt = document.createElement('option');
+    opt.value = v;
+    opt.textContent = v;
+    sel.appendChild(opt);
   });
-})();
-
-// Auto-refresh on SW update
-(function(){
-  const el = document.getElementById('swState');
-  function set(text){ if (el) el.textContent = text; }
-  if (!('serviceWorker' in navigator)){ set('not supported'); return; }
-  navigator.serviceWorker.register('service-worker.js').then(() => set('registered')).catch(() => set('failed'));
-  let reloaded = false;
-  navigator.serviceWorker.addEventListener('controllerchange', () => {
-    if (reloaded) return; reloaded = true; location.reload();
-  });
-  navigator.serviceWorker.addEventListener('message', (event) => {
-    const d = event && event.data;
-    if (d && d.type === 'SW_ACTIVATED_RELOAD' && !reloaded){ reloaded = true; location.reload(); }
-  });
-})();
+}
+function populateSelects(){
+  const products = [...new Set(pegData.map(d=>d.Product))];
+  const methods = [...new Set(pegData.map(d=>d.Method))];
+  const pressures = [...new Set(pegData.map(d=>d.Pressure))];
+  populateSelect('product', products);
+  populateSelect('method', methods);
+  populateSelect('pressure', pressures);
+}
+function updateResult(){
+  const product = document.getElementById('product').value;
+  const method = document.getElementById('method').value;
+  const pressure = document.getElementById('pressure').value;
+  const match = pegData.find(d=>d.Product===product && d.Method===method && d.Pressure===pressure);
+  document.getElementById('result').textContent = match ? 
+    `PEG Setting: ${match.PEG}, Dilution: ${match.Dilution}%` : 'No data found for selection.';
+}
+['product','method','pressure'].forEach(id=>document.getElementById(id).addEventListener('change', updateResult));
+loadData();

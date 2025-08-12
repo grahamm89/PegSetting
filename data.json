@@ -1,1 +1,3 @@
-{"ok": true}
+[
+  {"Product":"Example Product","Method":"Trigger Spray","Pressure":"1.5 bar","PEG":"K","Dilution":2.5}
+]

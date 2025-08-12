@@ -1,29 +1,39 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PegSetting</title>
-  <link rel="manifest" href="manifest.json" />
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Peg Setting Calculator</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <main class="wrap">
-    <h1>PegSetting</h1>
-    <p class="muted">Deployed successfully. This build includes a quiet PWA, auto‑update service worker, and a hidden admin page.</p>
-    <section id="status" class="card">
-      <h2>Status</h2>
-      <ul>
-        <li>Service Worker: <span id="swState">checking…</span></li>
-        <li>Last updated: <span id="stamp"></span></li>
-      </ul>
-    </section>
-    <section class="card">
-      <h2>How to edit data</h2>
-      <p>Double‑tap <kbd>E</kbd> to open the admin editor (password: <code>apex-admin</code>). Download the updated JSON and upload it to GitHub.</p>
-    </section>
-  </main>
+  <div id="app">
+    <h1>Peg Setting Calculator</h1>
+    <label for="product">Product:</label>
+    <select id="product"></select>
+
+    <label for="method">Application Method:</label>
+    <select id="method"></select>
+
+    <label for="pressure">Pressure:</label>
+    <select id="pressure"></select>
+
+    <div id="result">Select options to see result.</div>
+  </div>
+
+  <!-- Admin Modal (hidden by default) -->
+  <div id="adminModal" style="display:none;">
+    <div class="modal-content">
+      <h2>Edit Data</h2>
+      <textarea id="dataEditor" style="width:100%;height:200px;"></textarea><br>
+      <button id="saveData">Save</button>
+      <button id="closeAdmin">Close</button>
+    </div>
+  </div>
+
   <script src="js/app.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/pwa.js"></script>
 </body>
 </html>
