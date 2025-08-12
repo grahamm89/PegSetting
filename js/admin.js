@@ -1,49 +1,67 @@
-
-const adminOverlay = document.getElementById('adminOverlay');
-const dataEditor = document.getElementById('dataEditor');
-const applyPreview = document.getElementById('applyPreview');
-const downloadData = document.getElementById('downloadData');
-const closeAdmin = document.getElementById('closeAdmin');
-
-function openAdmin(){
-  dataEditor.value = JSON.stringify(state.data, null, 2);
-  adminOverlay.style.display = 'flex';
+function login(){
+  const pw = document.getElementById('password').value;
+  if(pw === 'apex-admin'){
+    document.getElementById('loginContainer').style.display = 'none';
+    document.getElementById('adminContainer').style.display = 'block';
+    loadData();
+  } else {
+    alert('Wrong password');
+  }
 }
-function closeModal(){ adminOverlay.style.display = 'none'; }
 
-let lastPress = 0;
-document.addEventListener('keydown', (e) => {
-  if ((e.key||'').toLowerCase() === 'e') {
-    const now = Date.now();
-    if (now - lastPress < 400) {
-      const pass = prompt('Enter admin password:');
-      if (pass === 'apex-admin') openAdmin();
-    }
-    lastPress = now;
-  }
-});
+function loadData(){
+  fetch('data.json').then(r=>r.json()).then(data => {
+    const tbody = document.querySelector('#dataTable tbody');
+    tbody.innerHTML = '';
+    data.forEach((row, i) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td contenteditable>${row.Product}</td>
+        <td contenteditable>${row.Method}</td>
+        <td contenteditable>${row.Pressure}</td>
+        <td contenteditable>${row.PEG}</td>
+        <td contenteditable>${row.Dilution}</td>
+        <td><button onclick="deleteRow(this)">X</button></td>
+      `;
+      tbody.appendChild(tr);
+    });
+  });
+}
 
-if (closeAdmin) closeAdmin.addEventListener('click', closeModal);
-if (applyPreview) applyPreview.addEventListener('click', () => {
-  try {
-    const next = JSON.parse(dataEditor.value);
-    if (!Array.isArray(next)) throw new Error('data.json must be an array');
-    state.data = next;
-    initSelectors();
-    alert('Preview updated. Remember to Download and upload data.json to GitHub.');
-  } catch (err) {
-    alert('Invalid JSON: ' + err.message);
-  }
-});
-if (downloadData) downloadData.addEventListener('click', () => {
-  try {
-    const blob = new Blob([dataEditor.value], {type: 'application/json'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url; a.download = 'data.json';
-    document.body.appendChild(a); a.click(); a.remove();
-    URL.revokeObjectURL(url);
-  } catch (err) {
-    alert('Could not create download: ' + err.message);
-  }
-});
+function addRow(){
+  const tbody = document.querySelector('#dataTable tbody');
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td contenteditable></td>
+    <td contenteditable></td>
+    <td contenteditable></td>
+    <td contenteditable></td>
+    <td contenteditable></td>
+    <td><button onclick="deleteRow(this)">X</button></td>
+  `;
+  tbody.appendChild(tr);
+}
+
+function deleteRow(btn){
+  btn.closest('tr').remove();
+}
+
+function downloadData(){
+  const rows = document.querySelectorAll('#dataTable tbody tr');
+  const data = [];
+  rows.forEach(tr => {
+    const cells = tr.querySelectorAll('td');
+    data.push({
+      Product: cells[0].innerText.trim(),
+      Method: cells[1].innerText.trim(),
+      Pressure: cells[2].innerText.trim(),
+      PEG: cells[3].innerText.trim(),
+      Dilution: parseFloat(cells[4].innerText.trim())
+    });
+  });
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'data.json';
+  a.click();
+}

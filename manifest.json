@@ -1,7 +1,7 @@
 {
-  "name": "QFM Peg Settings",
-  "short_name": "Peg Settings",
-  "start_url": "./",
+  "name": "Dilution Calculator",
+  "short_name": "Dilution",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#f0f0f0",
   "theme_color": "#4CAF50",

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,32 +10,18 @@
 <body>
   <div class="container">
     <h1>Dilution Calculator</h1>
+
     <label for="product">Product:</label>
     <select id="product"></select>
+
     <label for="method">Application Method:</label>
     <select id="method"></select>
+
     <label for="pressure">Pressure:</label>
     <select id="pressure"></select>
+
     <div id="result">Select options to see result.</div>
   </div>
-
-  <div id="adminOverlay" class="overlay" style="display:none;">
-    <div class="modal">
-      <h2>Edit data.json</h2>
-      <textarea id="dataEditor"></textarea>
-      <div class="actions">
-        <button id="applyPreview">Apply (preview)</button>
-        <button id="downloadData">Download data.json</button>
-        <button id="closeAdmin">Close</button>
-      </div>
-      <p class="hint">Changes update your local preview only. Use Download to save and upload to GitHub.</p>
-    </div>
-  </div>
-
-  <footer>Offline ready. <span id="stamp"></span></footer>
-
-  <script defer src="js/app.js"></script>
-  <script defer src="js/admin.js"></script>
-  <script defer src="js/pwa.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>

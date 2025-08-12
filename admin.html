@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin - Edit Data</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container" id="loginContainer">
+<h1>Admin Login</h1>
+<input type="password" id="password" placeholder="Password">
+<button onclick="login()">Login</button>
+</div>
+
+<div class="container" id="adminContainer" style="display:none;">
+<h1>Edit Data</h1>
+<table id="dataTable" border="1" cellpadding="5">
+<thead>
+<tr><th>Product</th><th>Method</th><th>Pressure</th><th>PEG</th><th>Dilution</th><th>Delete</th></tr>
+</thead>
+<tbody></tbody>
+</table>
+<button onclick="addRow()">Add Row</button>
+<button onclick="downloadData()">Download Updated data.json</button>
+</div>
+
+<script src="js/admin.js"></script>
+</body>
+</html>
