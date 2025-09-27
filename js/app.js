@@ -1,6 +1,9 @@
 
 // Core app logic: load data.json, populate selectors, and render result
 window.state = { data: [] };
+// Determine base path for GitHub Pages
+const __parts = location.pathname.split('/').filter(Boolean);
+const BASE = __parts.length ? `/${__parts[0]}/` : '/';
 
 const els = {
   product: document.getElementById('product'),
@@ -55,7 +58,7 @@ function initSelectors(){
 
 async function loadData(){
   try {
-    const res = await fetch('data.json?v=' + Date.now(), {cache:'no-cache'});
+    const res = await fetch(BASE + 'data.json?v=' + Date.now(), {cache:'no-store'}), {cache:'no-store'}), {cache:'no-cache'});
     const arr = await res.json();
     window.state.data = Array.isArray(arr) ? arr : [];
     initSelectors();
@@ -68,7 +71,7 @@ async function loadData(){
 document.addEventListener('DOMContentLoaded', async () => {
   await loadData();
   try {
-    const res = await fetch('data.json?v=' + Date.now(), {cache:'no-store'});
+    const res = await fetch(BASE + 'data.json?v=' + Date.now(), {cache:'no-store'}), {cache:'no-store'}), {cache:'no-store'});
     const arr = await res.json();
     __dataHash = hashObj(arr);
   } catch(e) {}
@@ -112,7 +115,7 @@ let __dataHash = null;
 
 async function refreshDataIfChanged(){
   try {
-    const res = await fetch('data.json?v=' + Date.now(), {cache:'no-store'});
+    const res = await fetch(BASE + 'data.json?v=' + Date.now(), {cache:'no-store'}), {cache:'no-store'}), {cache:'no-store'});
     const arr = await res.json();
     const newHash = hashObj(arr);
     if (newHash !== __dataHash){
