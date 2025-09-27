@@ -32,12 +32,14 @@ function tableToJson(){
   return rows.map(tr => {
     const tds = tr.querySelectorAll('td');
     return {
-      Product: tds[0].innerText.trim(),
-      Method: tds[1].innerText.trim(),
-      Pressure: tds[2].innerText.trim(),
-      PEG: tds[3].innerText.trim(),
-      Dilution: parseFloat(tds[4].innerText.trim() || '0')
-    };
+    Product: tds[0].innerText.trim(),
+    Method: tds[1].innerText.trim(),
+    Pressure: tds[2].innerText.trim(),
+    PEG: tds[3].innerText.trim(),
+    Dilution: parseFloat(tds[4].innerText.trim() || '0'),
+    Min: tds[5].innerText.trim(),
+    Max: tds[6].innerText.trim()
+  };
   });
 }
 
@@ -65,7 +67,8 @@ document.getElementById('addRow').addEventListener('click', () => {
 });
 
 document.getElementById('downloadData').addEventListener('click', () => {
-  const data = tableToJson();
+  let data = tableToJson();
+  data = normalizeMinMaxByProduct(data);
   if (window.state) window.state.data = data; // live preview
   downloadJson(suggestedFilename, data);
 });
@@ -108,3 +111,20 @@ document.addEventListener('keydown', (e) => {
     last = now;
   }
 });
+
+
+/* Normalize Min/Max per product: last non-empty Min/Max wins and applies to all rows of that product */
+function normalizeMinMaxByProduct(rows){
+  const per = {};
+  rows.forEach(r => {
+    const p = r.Product||'';
+    if (!per[p]) per[p] = {Min:'', Max:''};
+    if ((r.Min||'').trim()) per[p].Min = r.Min.trim();
+    if ((r.Max||'').trim()) per[p].Max = r.Max.trim();
+  });
+  return rows.map(r => {
+    const p = r.Product||'';
+    const mm = per[p] || {Min:'', Max:''};
+    return Object.assign({}, r, { Min: mm.Min||'', Max: mm.Max||'' });
+  });
+}
