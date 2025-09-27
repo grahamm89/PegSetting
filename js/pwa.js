@@ -1,6 +1,7 @@
 
 (function(){
   const id = 'updateBanner';
+  const scriptUrl = (document.currentScript && document.currentScript.src) || new URL('js/pwa.js', window.location.href).href;
   function ensureBanner(){
     let b = document.getElementById(id);
     if (b) return b;
@@ -16,7 +17,8 @@
 
   window.addEventListener('load', async () => {
     try {
-      const reg = await navigator.serviceWorker.register('./service-worker.js');
+      const swUrl = new URL('../service-worker.js', scriptUrl);
+      const reg = await navigator.serviceWorker.register(swUrl.pathname);
       function onNewSW(sw){
         const banner = ensureBanner();
         banner.style.display = 'block';
