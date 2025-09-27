@@ -49,7 +49,7 @@ function initSelectors(){
 
   // Listeners
   if (els.product){
-    els.product.addEventListener('change', () => { rebuildDependentSelectors(); if (els.method) { els.method.value = ''; els.method.dispatchEvent(new Event('change')); } if (els.pressure) { els.pressure.value = ''; els.pressure.dispatchEvent(new Event('change')); } updateResult(); });
+    els.product.addEventListener('change', () => { rebuildDependentSelectors(); if (els.method) { els.method.value = ''; els.method.dispatchEvent(new Event('change')); } if (els.pressure) { els.pressure.value = ''; els.pressure.dispatchEvent(new Event('change')); }; updateResult(); });
   }
   if (els.method) els.method.addEventListener('change', updateResult);
   if (els.pressure) els.pressure.addEventListener('change', updateResult);
@@ -59,7 +59,7 @@ function initSelectors(){
 
 async function loadData(){
   try {
-    const res = await fetch(relUrl('data.json') + '?v=' + Date.now(), {cache:'no-store'}), {cache:'no-store'}), {cache:'no-store'}), {cache:'no-cache'});
+    const res = await fetch(relUrl('data.json') + '?v=' + Date.now(), { cache: 'no-store' }), {cache:'no-store'}), {cache:'no-cache'});
     const arr = await res.json();
     window.state.data = Array.isArray(arr) ? arr : [];
     initSelectors();
@@ -72,7 +72,7 @@ async function loadData(){
 document.addEventListener('DOMContentLoaded', async () => {
   await loadData();
   try {
-    const res = await fetch(relUrl('data.json') + '?v=' + Date.now(), {cache:'no-store'}), {cache:'no-store'}), {cache:'no-store'}), {cache:'no-store'});
+    const res = await fetch(relUrl('data.json') + '?v=' + Date.now(), { cache: 'no-store' }), {cache:'no-store'}), {cache:'no-store'});
     const arr = await res.json();
     __dataHash = hashObj(arr);
   __dispatchDataHash();
@@ -117,7 +117,7 @@ let __dataHash = null;
 
 async function refreshDataIfChanged(){
   try {
-    const res = await fetch(relUrl('data.json') + '?v=' + Date.now(), {cache:'no-store'}), {cache:'no-store'}), {cache:'no-store'}), {cache:'no-store'});
+    const res = await fetch(relUrl('data.json') + '?v=' + Date.now(), { cache: 'no-store' }), {cache:'no-store'}), {cache:'no-store'});
     const arr = await res.json();
     const newHash = hashObj(arr);
     if (newHash !== __dataHash){

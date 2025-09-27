@@ -1,213 +1,163 @@
-// js/pwa.js (GitHub Pages friendly, headerless updates)
+// pwa.js — robust PWA helpers: version chip + refresh controls
 (function () {
+  'use strict';
   if (!('serviceWorker' in navigator)) return;
 
-  // Determine base path: "/" for user pages, "/repo/" for project pages
-  const parts = location.pathname.split('/').filter(Boolean);
+  // Base path for GitHub Pages project sites (e.g., /PegSetting/)
   const BASE = location.pathname.replace(/[^/]*$/, '/');
-
   const BUILD_URL = `${BASE}build.json`;
 
+  // -------- DOM helpers --------
+  const $ = (sel) => document.querySelector(sel);
+  const chip = $('#version-chip');
+  const btnNow = $('#refresh-now');
+  const btnSoon = $('#refresh-soon');
+  const btnInterval = $('#refresh-interval');
+
+  // -------- Version chip --------
+  async function getBuildId() {
+    try {
+      const res = await fetch(BUILD_URL + '?t=' + Date.now(), { cache: 'no-store' });
+      if (!res.ok) throw new Error('no build.json');
+      const j = await res.json();
+      return (j && (j.buildId || j.version || j.hash)) || null;
+    } catch {
+      return null;
+    }
+  }
+  async function updateVersionChip() {
+    const id = await getBuildId();
+    if (chip) chip.textContent = 'v' + (id || '?');
+  }
+
+  // -------- Service worker register --------
+  async function registerSW(buildId) {
+    const swUrl = `${BASE}service-worker.js?v=${buildId || ''}`;
+    try {
+      const reg = await navigator.serviceWorker.register(swUrl, { scope: BASE });
+      // If a new worker appears, prompt user
+      reg.addEventListener?.('updatefound', () => {
+        const sw = reg.installing || reg.waiting;
+        if (sw) showUpdateBanner(sw);
+      });
+      return reg;
+    } catch (e) {
+      console.warn('SW register failed', e);
+      return null;
+    }
+  }
+
+  // Reload on controller change (after SKIP_WAITING activates)
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    // Small delay to allow takeover, then reload
+    setTimeout(() => location.reload(), 200);
+  });
+
+  // -------- Update banner --------
   function ensureBanner() {
     let b = document.getElementById('updateBanner');
     if (b) return b;
     b = document.createElement('div');
     b.id = 'updateBanner';
-    b.style.cssText = 'position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:9999;background:#111;color:#fff;padding:10px 14px;border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,.25);display:none;';
-    b.innerHTML = '<span>Update available.</span> <button id="updBtn" style="margin-left:8px;padding:6px 10px;border-radius:8px;border:0;cursor:pointer">Refresh</button>';
+    b.style.cssText = [
+      'position:fixed',
+      'left:50%',
+      'transform:translateX(-50%)',
+      'bottom:16px',
+      'z-index:9999',
+      'background:#0b5',
+      'color:#fff',
+      'padding:10px 14px',
+      'border-radius:10px',
+      'box-shadow:0 2px 12px rgba(0,0,0,.25)',
+      'display:none',
+      'font:14px/1.2 system-ui, -apple-system, Segoe UI, Roboto, sans-serif'
+    ].join(';');
+
+    const span = document.createElement('span');
+    span.textContent = 'New version available';
+    span.style.marginRight = '8px';
+
+    const btn = document.createElement('button');
+    btn.id = 'updBtn';
+    btn.textContent = 'Update';
+    btn.style.cssText = 'background:#fff;color:#0b5;border:0;border-radius:8px;padding:6px 10px;cursor:pointer';
+
+    b.appendChild(span);
+    b.appendChild(btn);
     document.body.appendChild(b);
     return b;
   }
 
-  async function getBuildId() {
-    try {
-      const res = await fetch(`${BUILD_URL}?v=${Date.now()}`, { cache: 'no-store' });
-      const j = await res.json();
-      return j && j.buildId;
-    } catch { return null; }
+  function showUpdateBanner(sw) {
+    const b = ensureBanner();
+    b.style.display = 'block';
+    const btn = b.querySelector('#updBtn');
+    btn.onclick = () => sw.postMessage({ type: 'SKIP_WAITING' });
   }
 
-  async function registerSW(buildId) {
-    const swUrl = new URL('service-worker.js?v=' + (buildId || ''), BASE_URL).toString();
-    try {
-      return await navigator.serviceWorker.register(swUrl, { scope: BASE_URL.pathname });
-    } catch (e) {
-      console.warn('SW register failed', e);
-      return null;
+  // Listen to SW messages (e.g., NEW_CONTENT)
+  navigator.serviceWorker.addEventListener('message', (e) => {
+    const d = e.data;
+    if (!d) return;
+    if (d.type === 'NEW_CONTENT') {
+      const sw = (navigator.serviceWorker.controller && navigator.serviceWorker) ? navigator.serviceWorker : null;
+      showUpdateBanner(sw?.controller || { postMessage: () => navigator.serviceWorker.controller && navigator.serviceWorker.controller.postMessage({ type: 'SKIP_WAITING' }) });
     }
   });
-    } catch (e) {
-      console.warn('SW register failed', e);
-      return null;
+
+  // -------- Refresh scheduling --------
+  let longInterval = 12 * 60 * 60 * 1000; // 12 hours
+  let timerId = null;
+
+  function clearLongSchedule() {
+    if (timerId) {
+      clearInterval(timerId);
+      timerId = null;
     }
   }
 
-  function showUpdate(sw) {
-    const banner = ensureBanner();
-    banner.style.display = 'block';
-    banner.querySelector('#updBtn').onclick = () => sw.postMessage({ type: 'SKIP_WAITING' });
+  async function hardReload() {
+    try {
+      const reg = await navigator.serviceWorker.getRegistration();
+      if (reg && reg.update) { try { await reg.update(); } catch {} }
+    } catch {}
+    location.reload();
   }
 
-  async function init() {
-    const current = await getBuildId();
-    if (!current) return;
-    localStorage.setItem('buildId', current);
-
-    const reg = await registerSW(current);
-    if (reg) {
-      if (reg.waiting) showUpdate(reg.waiting);
-      reg.addEventListener('updatefound', () => {
-        const sw = reg.installing;
-        if (!sw) return;
-        sw.addEventListener('statechange', () => {
-          if (sw.state === 'installed' && navigator.serviceWorker.controller) showUpdate(sw);
-        });
-      });
-    }
-
-    navigator.serviceWorker.addEventListener('controllerchange', () => window.location.reload());
-
-    // Poll build.json every 5 minutes in visible tabs
-    let timer = null;
-    async function tick() {
-      if (document.hidden) return;
-      const cached = localStorage.getItem('buildId');
-      const latest = await getBuildId();
-      if (latest && latest !== cached) {
-        localStorage.setItem('buildId', latest);
-        const reg2 = await registerSW(latest);
-        if (reg2 && reg2.waiting) showUpdate(reg2.waiting);
-      }
-    }
-    function schedule() {
-      if (timer) clearInterval(timer);
-      timer = setInterval(tick, 5 * 60 * 1000);
-    }
-    document.addEventListener('visibilitychange', () => { if (!document.hidden) tick(); });
-    schedule();
+  function scheduleLongRefresh() {
+    clearLongSchedule();
+    timerId = setInterval(hardReload, longInterval);
+    if (btnInterval) btnInterval.setAttribute('aria-pressed', 'true');
   }
 
-  window.addEventListener('load', init);
-})();
+  // Wire UI controls if present
+  if (btnNow) btnNow.addEventListener('click', hardReload);
 
+  if (btnSoon) btnSoon.addEventListener('click', () => {
+    // One-off quick refresh ~15s; afterwards keep long schedule
+    clearLongSchedule();
+    setTimeout(hardReload, 15000);
+    scheduleLongRefresh();
+  });
 
-// ---- One-hour auto-refresh watchdog (activity-aware) ----
-(function(){
-  function getRefreshWindowMs(){
-  const now = Date.now();
-  const oMs = parseInt(localStorage.getItem('refreshOverrideMs')||'',10);
-  const oUntil = parseInt(localStorage.getItem('refreshOverrideUntil')||'',10);
-  if (!isNaN(oMs) && oMs>0 && !isNaN(oUntil) && oUntil>now){
-    return oMs; // override active
-  }
-  // clear stale override
-  try{ localStorage.removeItem('refreshOverrideMs'); localStorage.removeItem('refreshOverrideUntil'); }catch(e){}
-  const d = parseInt(localStorage.getItem('refreshWindowMs')||'',10);
-  if (!isNaN(d) && d>0) return d;
-  return 12 * 60 * 60 * 1000; // default 12 hours
-}
-let FORCE_REFRESH_AFTER_MS = getRefreshWindowMs();
-  const COUNTDOWN_MS = 30 * 1000; // show banner 30s before refresh
-  let lastActivity = Date.now(), FORCE_REFRESH_AFTER_MS = getRefreshWindowMs();
-  let refreshTimer = null, countdownTimer = null, banner = null, countdownSpan = null;
-  const bc = ('BroadcastChannel' in window) ? new BroadcastChannel('peg-settings') : null;
-
-  function ensureBanner(){
-    if (banner) return banner;
-    banner = document.getElementById('updateBanner');
-    if (!banner){
-      banner = document.createElement('div');
-      banner.id = 'updateBanner';
-      banner.style.cssText = 'position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:9999;background:#111;color:#fff;padding:10px 14px;border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,.25);display:none;';
-      banner.innerHTML = '<span>Refreshing in <b id="updCountdown">30</b>s to get the latest settings.</span> <button id="updBtn" style="margin-left:8px;padding:6px 10px;border-radius:8px;border:0;cursor:pointer">Refresh now</button> <button id="snoozeBtn" style="margin-left:8px;padding:6px 10px;border-radius:8px;border:0;cursor:pointer">Snooze 10 min</button>';
-      document.body.appendChild(banner);
-    }
-    countdownSpan = document.getElementById('updCountdown');
-    banner.querySelector('#updBtn').onclick = () => doRefresh(true);
-    banner.querySelector('#snoozeBtn').onclick = snooze;
-    return banner;
-  }
-
-  function doRefresh(fromUser){
-    // Ask SW to skip waiting if there's a new one, then reload
-    navigator.serviceWorker && navigator.serviceWorker.getRegistration().then(reg => {
-      if (reg && reg.waiting) reg.waiting.postMessage({type:'SKIP_WAITING'});
-    }).finally(() => {
-      if (!navigator.onLine) { // wait for online if needed
-        window.addEventListener('online', () => location.reload(), {once:true});
-      } else {
-        location.reload();
-      }
-    });
-  }
-
-  function clearTimers(){
-    if (refreshTimer) { clearTimeout(refreshTimer); refreshTimer = null; }
-    if (countdownTimer) { clearInterval(countdownTimer); countdownTimer = null; }
-    if (banner) banner.style.display = 'none';
-  }
-
-  function schedule(){
-    clearTimers();
-    const elapsed = Date.now() - lastActivity;
-    FORCE_REFRESH_AFTER_MS = getRefreshWindowMs();
-    const remaining = Math.max(FORCE_REFRESH_AFTER_MS - elapsed, 0);
-    if (remaining <= COUNTDOWN_MS){
-      const b = ensureBanner(); b.style.display = 'block';
-      let left = Math.ceil(remaining/1000);
-      countdownSpan.textContent = left;
-      countdownTimer = setInterval(() => {
-        left -= 1; if (left < 0) left = 0;
-        countdownSpan.textContent = left;
-      }, 1000);
-      refreshTimer = setTimeout(() => doRefresh(false), remaining);
+  if (btnInterval) btnInterval.addEventListener('click', () => {
+    // Toggle 12h schedule
+    if (timerId) {
+      clearLongSchedule();
+      btnInterval.setAttribute('aria-pressed', 'false');
     } else {
-      refreshTimer = setTimeout(schedule, remaining - COUNTDOWN_MS);
+      scheduleLongRefresh();
     }
-  }
-
-  function snooze(){
-    clearTimers();
-    lastActivity = Date.now() + (10 * 60 * 1000) - FORCE_REFRESH_AFTER_MS; // push by 10 min
-    schedule();
-  }
-
-  // Activity events reset the clock
-  ['click','keydown','pointerdown','touchstart','scroll'].forEach(ev => {
-    window.addEventListener(ev, () => { lastActivity = Date.now(); schedule(); }, {passive:true});
-  });
-  document.addEventListener('visibilitychange', () => {
-    // If user returns to tab, consider that activity
-    if (!document.hidden){ lastActivity = Date.now(); schedule(); }
   });
 
-  // Multi-tab coordination: first active tab can owns the refresh. Others reload when controller changes.
-  if (bc){
-    bc.onmessage = (e) => {
-      if (e.data?.type === 'force-refresh') doRefresh(false);
-      if (e.data?.type === 'refresh-config' && typeof e.data.ms === 'number'){
-        try{ localStorage.setItem('refreshWindowMs', String(e.data.ms)); }catch(e){}
-        lastActivity = Date.now(); schedule();
-      }
-      if (e.data?.type === 'refresh-override' && typeof e.data.ms === 'number' && typeof e.data.until === 'number'){
-        try{ localStorage.setItem('refreshOverrideMs', String(e.data.ms)); localStorage.setItem('refreshOverrideUntil', String(e.data.until)); }catch(e){}
-        lastActivity = Date.now(); schedule();
-      }
-    };
-  }
+  // -------- Init --------
+  (async function init() {
+    await updateVersionChip();
+    const id = await getBuildId();
+    await registerSW(id);
+    // default long refresh on
+    scheduleLongRefresh();
+  })();
 
-  // Kick off
-  schedule();
 })();
-
-
-navigator.serviceWorker && navigator.serviceWorker.addEventListener('message', (e) => {
-  const d = e.data;
-  if (!d) return;
-  if (d.type === 'REFRESH_OVERRIDE' && typeof d.ms === 'number' && typeof d.until === 'number') {
-    try { localStorage.setItem('refreshOverrideMs', String(d.ms)); localStorage.setItem('refreshOverrideUntil', String(d.until)); } catch(e){}
-    // apply immediately
-    if (typeof lastActivity !== 'undefined') { lastActivity = Date.now(); }
-    if (typeof schedule === 'function') schedule();
-  }
-});
