@@ -22,12 +22,14 @@ function buildTable(arr){
   arr.forEach(row => {
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td contenteditable>${row.Product ?? ''}</td>
-      <td contenteditable>${row.Method ?? ''}</td>
-      <td contenteditable>${row.Pressure ?? ''}</td>
-      <td contenteditable>${row.PEG ?? ''}</td>
-      <td contenteditable>${row.Dilution ?? ''}</td>
-      <td><button class="del">X</button></td>
+      <td contenteditable="true">${row.Product||''}</td>
+      <td contenteditable="true">${row.Method||''}</td>
+      <td contenteditable="true">${row.Pressure||''}</td>
+      <td contenteditable="true">${row.PEG||''}</td>
+      <td contenteditable="true">${row.Dilution??''}</td>
+      <td contenteditable="true">${row.Min||''}</td>
+      <td contenteditable="true">${row.Max||''}</td>
+      <td><button class="del">✕</button></td>
     `;
     tr.querySelector('.del').addEventListener('click', () => tr.remove());
     tb.appendChild(tr);
@@ -39,12 +41,14 @@ function tableToJson(){
   return rows.map(tr => {
     const tds = tr.querySelectorAll('td');
     return {
-      Product: tds[0].innerText.trim(),
-      Method: tds[1].innerText.trim(),
-      Pressure: tds[2].innerText.trim(),
-      PEG: tds[3].innerText.trim(),
-      Dilution: parseFloat(tds[4].innerText.trim() || '0')
-    };
+    Product: tds[0].innerText.trim(),
+    Method: tds[1].innerText.trim(),
+    Pressure: tds[2].innerText.trim(),
+    PEG: tds[3].innerText.trim(),
+    Dilution: parseFloat(tds[4].innerText.trim() || '0'),
+    Min: tds[5].innerText.trim(),
+    Max: tds[6].innerText.trim()
+  };
   });
 }
 
@@ -60,13 +64,15 @@ function downloadJson(filename, obj){
 document.getElementById('addRow').addEventListener('click', () => {
   const tr = document.createElement('tr');
   tr.innerHTML = `
-    <td contenteditable></td>
-    <td contenteditable></td>
-    <td contenteditable></td>
-    <td contenteditable></td>
-    <td contenteditable></td>
-    <td><button class="del">X</button></td>
-  `;
+      <td contenteditable="true">${row.Product||''}</td>
+      <td contenteditable="true">${row.Method||''}</td>
+      <td contenteditable="true">${row.Pressure||''}</td>
+      <td contenteditable="true">${row.PEG||''}</td>
+      <td contenteditable="true">${row.Dilution??''}</td>
+      <td contenteditable="true">${row.Min||''}</td>
+      <td contenteditable="true">${row.Max||''}</td>
+      <td><button class="del">✕</button></td>
+    `;
   tr.querySelector('.del').addEventListener('click', () => tr.remove());
   tbody().appendChild(tr);
 });

@@ -32,12 +32,14 @@ function tableToJson(){
   return rows.map(tr => {
     const tds = tr.querySelectorAll('td');
     return {
-      Product: tds[0].innerText.trim(),
-      Method: tds[1].innerText.trim(),
-      Pressure: tds[2].innerText.trim(),
-      PEG: tds[3].innerText.trim(),
-      Dilution: parseFloat(tds[4].innerText.trim() || '0')
-    };
+    Product: tds[0].innerText.trim(),
+    Method: tds[1].innerText.trim(),
+    Pressure: tds[2].innerText.trim(),
+    PEG: tds[3].innerText.trim(),
+    Dilution: parseFloat(tds[4].innerText.trim() || '0'),
+    Min: tds[5].innerText.trim(),
+    Max: tds[6].innerText.trim()
+  };
   });
 }
 
