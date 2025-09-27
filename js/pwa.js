@@ -16,7 +16,7 @@
 
   window.addEventListener('load', async () => {
     try {
-      const reg = await navigator.serviceWorker.register('/service-worker.js');
+      const reg = await navigator.serviceWorker.register('./service-worker.js');
       function onNewSW(sw){
         const banner = ensureBanner();
         banner.style.display = 'block';

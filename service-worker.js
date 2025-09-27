@@ -1,14 +1,16 @@
 // Enhanced SW with versioned cache + skipWaiting + data.json bypass
-const SW_VERSION = '1758951308';
+const SW_VERSION = '1759050000';
 const CACHE_NAME = 'pwa-cache-v' + SW_VERSION;
+const INDEX_PATH = new URL('index.html', self.location).pathname;
 const ASSETS = [
-  '/', '/index.html',
-  '/manifest.json',
-  '/css/style.css',
-  '/js/app.js',
-  '/js/pwa.js',
-  '/js/limits.js',
-  '/js/admin-inline.js'
+  new URL('./', self.location).pathname,
+  new URL('index.html', self.location).pathname,
+  new URL('manifest.json', self.location).pathname,
+  new URL('css/style.css', self.location).pathname,
+  new URL('js/app.js', self.location).pathname,
+  new URL('js/pwa.js', self.location).pathname,
+  new URL('js/limits.js', self.location).pathname,
+  new URL('js/admin-inline.js', self.location).pathname
   // NOTE: deliberately NOT caching /data.json
 ];
 
@@ -46,10 +48,10 @@ self.addEventListener('fetch', (event) => {
   if (event.request.mode === 'navigate') {
     event.respondWith((async () => {
       const cache = await caches.open(CACHE_NAME);
-      const cached = await cache.match('/index.html');
+      const cached = await cache.match(INDEX_PATH);
       try {
         const fresh = await fetch(event.request);
-        cache.put('/index.html', fresh.clone());
+        cache.put(INDEX_PATH, fresh.clone());
         return fresh;
       } catch (e) {
         return cached || Response.error();
