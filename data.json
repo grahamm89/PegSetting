@@ -5,8 +5,8 @@
     "Pressure": "1.5 bar",
     "PEG": "K",
     "Dilution": 2.5,
-    "Min": "L (0.8%)",
-    "Max": "E (4%)"
+    "Min": "L (2%)",
+    "Max": "I (4%)"
   },
   {
     "Product": "Suma Break up D3.5",
@@ -14,8 +14,8 @@
     "Pressure": "2.5 bar",
     "PEG": "J",
     "Dilution": 3,
-    "Min": "L (0.8%)",
-    "Max": "E (4%)"
+    "Min": "L (2%)",
+    "Max": "I (4%)"
   },
   {
     "Product": "Suma Break up D3.5",
@@ -41,8 +41,8 @@
     "Pressure": "1.5 bar",
     "PEG": "M",
     "Dilution": 1.5,
-    "Min": "L (0.8%)",
-    "Max": "E (4%)"
+    "Min": "N (1%)",
+    "Max": "I (4%)"
   },
   {
     "Product": "Suma Bac D10",
@@ -50,8 +50,8 @@
     "Pressure": "2.5 bar",
     "PEG": "M",
     "Dilution": 1.5,
-    "Min": "L (0.8%)",
-    "Max": "E (4%)"
+    "Min": "N(1%)",
+    "Max": "I (4%)"
   },
   {
     "Product": "Suma Bac D10",
@@ -77,8 +77,8 @@
     "Pressure": "1.5 bar",
     "PEG": "K",
     "Dilution": 2.5,
-    "Min": "N (0.5%)",
-    "Max": "E (4%)"
+    "Min": "0 (0.5%)",
+    "Max": "J (3.0%)"
   },
   {
     "Product": "Suma Multi D2",
@@ -87,7 +87,7 @@
     "PEG": "K",
     "Dilution": 2.5,
     "Min": "N (0.5%)",
-    "Max": "E (4%)"
+    "Max": "J (3.0%)"
   },
   {
     "Product": "Suma Multi D2",
@@ -149,8 +149,8 @@
     "Pressure": "1.5 bar",
     "PEG": "K",
     "Dilution": 2.5,
-    "Min": "L (1%)",
-    "Max": "H (2.8%)"
+    "Min": "L (2.3%)",
+    "Max": "K (2.9%)"
   },
   {
     "Product": "TASKI Sani 4 in 1",
@@ -158,8 +158,8 @@
     "Pressure": "2.5 bar",
     "PEG": "K",
     "Dilution": 2.5,
-    "Min": "L (1%)",
-    "Max": "H (2.8%)"
+    "Min": "L (2.3%)",
+    "Max": "K (2.9%)"
   },
   {
     "Product": "TASKI Sani 4 in 1",
@@ -185,8 +185,8 @@
     "Pressure": "1.5 bar",
     "PEG": "E",
     "Dilution": 10,
-    "Min": "H (2.8%)",
-    "Max": "D (6.3%)"
+    "Min": "K (2.5%)",
+    "Max": "E (10%)"
   },
   {
     "Product": "Goodsense Breakdown",
@@ -194,8 +194,8 @@
     "Pressure": "2.5 bar",
     "PEG": "E",
     "Dilution": 10,
-    "Min": "H (2.8%)",
-    "Max": "D (6.3%)"
+    "Min": "K (2.5%)",
+    "Max": "E (10%)"
   },
   {
     "Product": "Goodsense Breakdown",
@@ -221,8 +221,8 @@
     "Pressure": "1.5 bar",
     "PEG": "F",
     "Dilution": 7.7,
-    "Min": "L (1%)",
-    "Max": "C (10%)"
+    "Min": "F(7.7)",
+    "Max": "E (10%)"
   },
   {
     "Product": "TASKI Sprint 200",
@@ -230,8 +230,8 @@
     "Pressure": "2.5 bar",
     "PEG": "F",
     "Dilution": 8.3,
-    "Min": "L (1%)",
-    "Max": "C (10%)"
+    "Min": "F(7.7)",
+    "Max": "E (10%)"
   },
   {
     "Product": "TASKI Sprint 200",
@@ -257,8 +257,8 @@
     "Pressure": "1.5 bar",
     "PEG": "F",
     "Dilution": 7.7,
-    "Min": "L (1%)",
-    "Max": "C (10%)"
+    "Min": "F(7.7)",
+    "Max": "E (10%)"
   },
   {
     "Product": "TASKI Sani 100",
@@ -266,8 +266,8 @@
     "Pressure": "2.5 bar",
     "PEG": "F",
     "Dilution": 8.3,
-    "Min": "L (1%)",
-    "Max": "C (10%)"
+    "Min": "F(7.7)",
+    "Max": "E (10%)"
   },
   {
     "Product": "TASKI Sani 100",
@@ -293,8 +293,8 @@
     "Pressure": "1.5 bar",
     "PEG": "F",
     "Dilution": 8,
-    "Min": "N (0.4%)",
-    "Max": "E (5%)"
+    "Min": "I (5%)",
+    "Max": "F (8%)"
   },
   {
     "Product": "Jontec 300",
@@ -302,8 +302,8 @@
     "Pressure": "2.5 bar",
     "PEG": "F",
     "Dilution": 8,
-    "Min": "N (0.4%)",
-    "Max": "E (5%)"
+    "Min": "I (5%)",
+    "Max": "F (8%)"
   },
   {
     "Product": "Jontec 300",
@@ -329,8 +329,8 @@
     "Pressure": "1.5 bar",
     "PEG": "F",
     "Dilution": 8,
-    "Min": "N (0.4%)",
-    "Max": "E (5%)"
+    "Min": "I (5%)",
+    "Max": "F (8%)"
   },
   {
     "Product": "Jontec Tensol",
@@ -338,8 +338,8 @@
     "Pressure": "2.5 bar",
     "PEG": "F",
     "Dilution": 8,
-    "Min": "N (0.4%)",
-    "Max": "E (5%)"
+    "Min": "I (5%)",
+    "Max": "F (8%)"
   },
   {
     "Product": "Jontec Tensol",
