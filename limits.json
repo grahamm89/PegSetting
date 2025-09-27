@@ -1,0 +1,67 @@
+[
+  {
+    "Product": "Suma Break up D3.5",
+    "Min": "L (0.8%)",
+    "Max": "E (4%)"
+  },
+  {
+    "Product": "Suma Bac D10",
+    "Min": "L (0.8%)",
+    "Max": "E (4%)"
+  },
+  {
+    "Product": "Suma Multi D2",
+    "Min": "N (0.5%)",
+    "Max": "E (4%)"
+  },
+  {
+    "Product": "Suma Chlor D4.4",
+    "Min": "N (0.5%)",
+    "Max": "M(0.8%)"
+  },
+  {
+    "Product": "Actival",
+    "Min": "N (0.5%)",
+    "Max": "D (6%)"
+  },
+  {
+    "Product": "TASKI Sani 4 in 1",
+    "Min": "L (1%)",
+    "Max": "H (2.8%)"
+  },
+  {
+    "Product": "Goodsense Breakdown",
+    "Min": "H (2.8%)",
+    "Max": "D (6.3%)"
+  },
+  {
+    "Product": "TASKI Sprint 200",
+    "Min": "L (1%)",
+    "Max": "C (10%)"
+  },
+  {
+    "Product": "TASKI Sani 100",
+    "Min": "L (1%)",
+    "Max": "C (10%)"
+  },
+  {
+    "Product": "Jontec 300",
+    "Min": "N (0.4%)",
+    "Max": "E (5%)"
+  },
+  {
+    "Product": "Jontec Tensol",
+    "Min": "N (0.4%)",
+    "Max": "E (5%)"
+  },
+  {
+    "Product": "Jontec Best",
+    "Min": "N (0.4%)",
+    "Max": "E (5%)"
+  },
+  {
+    "Product": "Jontec Forward",
+    "Min": "N (0.4%)",
+    "Max": "C (10%)"
+  }
+]

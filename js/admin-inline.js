@@ -3,7 +3,69 @@ const overlay = document.getElementById('adminOverlay');
 const tbody = () => document.querySelector('#dataTable tbody');
 let suggestedFilename = 'data.json';
 
+// === Live summary inside admin overlay ===
+function ensureAdminSummary(){
+  if (!overlay) return null;
+  let box = document.getElementById('adminPreviewSummary');
+  if (!box){
+    box = document.createElement('div');
+    box.id = 'adminPreviewSummary';
+    box.className = 'minmax';
+    const h = document.createElement('h3');
+    h.textContent = 'Preview — Range & Recommended PEG';
+    box.appendChild(h);
+    const content = document.createElement('div');
+    content.id = 'adminPreviewContent';
+    box.appendChild(content);
+    overlay.prepend(box);
+  }
+  return box;
+}
+
+async function loadLimits(){
+  try{
+    const res = await fetch('limits.json?v=' + Date.now(), {cache:'no-cache'});
+    return await res.json();
+  }catch(e){
+    return [];
+  }
+}
+
+async function updateAdminSummary(){
+  const box = ensureAdminSummary();
+  if (!box) return;
+  const content = document.getElementById('adminPreviewContent');
+  const prod = (document.getElementById('product')||{}).value;
+  const method = (document.getElementById('method')||{}).value;
+  const pressure = (document.getElementById('pressure')||{}).value;
+
+  // compute recommended from current in-memory table/state
+  const rows = (window.state && Array.isArray(window.state.data) ? window.state.data : [])
+    .filter(r => r.Product===prod && r.Method===method && r.Pressure===pressure);
+  const rec = rows.length ? rows[0] : null;
+
+  // fetch limits and pick for product
+  const lims = await loadLimits();
+  const mm = (lims||[]).find(x => x.Product === prod);
+
+  let html = '<div class="hint">No selection.</div>';
+  if (prod){
+    const range = mm ? `${mm.Min} <span class="arrow">→</span> ${mm.Max}` : '—';
+    const recText = rec ? ` — Recommended PEG: <b>${rec.PEG||''}</b> ${rec.Dilution!=null? '(at '+rec.Dilution+'%)':''}` : '';
+    html = `<div class="summary"><span class="pill">Range</span> ${range}${recText}</div>`;
+  }
+  content.innerHTML = html;
+}
+// re-run summary when selectors change
+['product','method','pressure'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('change', updateAdminSummary);
+});
+
+
 function openOverlay(){
+  ensureAdminSummary();
+  updateAdminSummary();
   buildTable(state.data || []);
   overlay.style.display = 'flex';
 }
@@ -106,5 +168,16 @@ document.addEventListener('keydown', (e) => {
       if (pass === 'apex-admin') openOverlay();
     }
     last = now;
+  }
+});
+
+
+/* Update summary live when editing table */
+document.addEventListener('input', (e) => {
+  const table = document.getElementById('dataTable');
+  if (table && table.contains(e.target)){
+    // Rebuild state.data for preview and refresh summary
+    if (window.state) window.state.data = tableToJson();
+    updateAdminSummary();
   }
 });
