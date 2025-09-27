@@ -69,8 +69,6 @@
     prodSel.addEventListener('change', rerender);
     if (methodSel) methodSel.addEventListener('change', rerender);
     if (pressureSel) pressureSel.addEventListener('change', rerender);
-    // When the underlying dataset changes (data.json updated), re-render the panel
-    window.addEventListener('datahash:updated', rerender);
     rerender();
   }
 

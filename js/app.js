@@ -35,12 +35,7 @@ async function loadData(){
     const arr = await res.json();
     window.state.data = Array.isArray(arr) ? arr : [];
     __dataHash = hashObj(window.state.data);
-    // Populate all selectors for the first time
     refreshSelectors();
-    // Fire a datahash event so other components know initial data is ready
-    try {
-      window.dispatchEvent(new CustomEvent('datahash:updated', { detail: { hash: __dataHash } }));
-    } catch (e) {}
     if (els.stamp) els.stamp.textContent = 'Updated: ' + new Date().toLocaleString();
   } catch (e){
     console.error('Failed to load data.json', e);
@@ -156,18 +151,12 @@ async function refreshDataIfChanged(){
     const res = await fetch('data.json?v=' + Date.now(), {cache:'no-store'});
     const arr = await res.json();
     const newHash = hashObj(arr);
-    // If the dataset has changed (different hash), update state and notify listeners
     if (newHash !== __dataHash){
       window.state.data = Array.isArray(arr) ? arr : [];
       __dataHash = newHash;
-      // Rebuild selectors but preserve the current selections where possible
+
       refreshSelectors({ preserveProduct: true, preserveDependents: true });
-      // Update the timestamp footer to show last update time
       if (els.stamp) els.stamp.textContent = 'Updated: ' + new Date().toLocaleString();
-      // Dispatch a custom event so other modules (e.g. limits.js) can react to the data change
-      try {
-        window.dispatchEvent(new CustomEvent('datahash:updated', { detail: { hash: __dataHash } }));
-      } catch (e) {}
       console.log('data.json updated; UI refreshed.');
     }
   } catch (e){
