@@ -104,3 +104,20 @@ document.getElementById('uploadInput').addEventListener('change', async (e) => {
     alert('Invalid JSON: ' + err.message);
   }
 });
+
+
+/* Normalize Min/Max per product: last non-empty Min/Max wins and applies to all rows of that product */
+function normalizeMinMaxByProduct(rows){
+  const per = {};
+  rows.forEach(r => {
+    const p = r.Product||'';
+    if (!per[p]) per[p] = {Min:'', Max:''};
+    if ((r.Min||'').trim()) per[p].Min = r.Min.trim();
+    if ((r.Max||'').trim()) per[p].Max = r.Max.trim();
+  });
+  return rows.map(r => {
+    const p = r.Product||'';
+    const mm = per[p] || {Min:'', Max:''};
+    return Object.assign({}, r, { Min: mm.Min||'', Max: mm.Max||'' });
+  });
+}
