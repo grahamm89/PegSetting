@@ -36,3 +36,15 @@ table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid #eee;pad
 }
 .minmax .summary .arrow{ margin:0 6px; font-weight:700; }
 .minmax .table{ margin-top:8px; background:#fff; }
+
+/* Muted state for Min/Max panel */
+.muted-panel{
+  opacity: .6;
+  pointer-events: none;
+}
+
+#updateBanner button:hover{filter:brightness(1.1)}
+
+.refresh-row{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+#refreshControls button, #refreshControlsStandalone button{ padding:6px 10px; border-radius:8px; border:1px solid #ddd; background:#fff; cursor:pointer; }
+#refreshControls button:hover, #refreshControlsStandalone button:hover{ filter:brightness(1.05); }

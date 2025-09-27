@@ -104,3 +104,37 @@ document.getElementById('uploadInput').addEventListener('change', async (e) => {
     alert('Invalid JSON: ' + err.message);
   }
 });
+
+
+// === Auto-Refresh Controls (Standalone Admin) ===
+(function(){
+  const bc = ('BroadcastChannel' in window) ? new BroadcastChannel('peg-settings') : null;
+  const s = document.getElementById('rfStatusStandalone');
+  function setMs(ms){
+    try{ localStorage.setItem('refreshWindowMs', String(ms)); }catch(e){}
+    if (bc) bc.postMessage({type:'refresh-config', ms});
+    if (s) s.textContent = (ms===30000? 'Will refresh ~30s after activity.' : 'Will refresh every 6 hours.');
+  }
+  const b30 = document.getElementById('rf30s_standalone');
+  const b6h = document.getElementById('rf6h_standalone');
+  if (b30) b30.addEventListener('click', () => setMs(30000));
+  if (b6h) b6h.addEventListener('click', () => setMs(6*60*60*1000));
+  const cur = parseInt(localStorage.getItem('refreshWindowMs')||'',10);
+  if (!isNaN(cur) && s) s.textContent = (cur===30000? '30s mode.' : Math.round(cur/3600000)+'h mode.');
+})();
+
+
+// Boost in standalone admin
+(function(){
+  const btn = document.getElementById('rfBoostStandalone');
+  const s = document.getElementById('rfStatusStandalone');
+  if (!btn) return;
+  const bc = ('BroadcastChannel' in window) ? new BroadcastChannel('peg-settings') : null;
+  const ms = 15000, duration = 60000;
+  btn.addEventListener('click', () => {
+    const until = Date.now() + duration;
+    try { localStorage.setItem('refreshOverrideMs', String(ms)); localStorage.setItem('refreshOverrideUntil', String(until)); } catch(e){}
+    if (bc) bc.postMessage({type:'refresh-override', ms, until});
+    if (s) s.textContent = 'Boost active for ~1 minute.';
+  });
+})();    

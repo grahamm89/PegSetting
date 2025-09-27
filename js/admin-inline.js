@@ -3,7 +3,85 @@ const overlay = document.getElementById('adminOverlay');
 const tbody = () => document.querySelector('#dataTable tbody');
 let suggestedFilename = 'data.json';
 
+// === Auto-Refresh Controls (Admin) ===
+function ensureRefreshControls(){
+  if (!overlay) return;
+  if (document.getElementById('refreshControls')) return;
+  const box = document.createElement('div');
+  box.id = 'refreshControls';
+  box.className = 'card-like';
+  box.innerHTML = `
+    <h3>Auto-Refresh</h3>
+    <div class="refresh-row">
+      <button id="rfBoost">Boost refresh (15s for 1 min)</button>
+      <span id="rfStatus" class="muted"></span>
+    </div>
+  `;
+  overlay.prepend(box);
+}
+
+
+// === Admin: Refresh Now control ===
+function ensureRefreshNowControl(){
+  if (!overlay) return;
+  if (document.getElementById('rfNow')) return;
+  const box = document.createElement('div');
+  box.className = 'card-like';
+  box.innerHTML = '<h3>Refresh</h3>';
+  overlay.prepend(box);
+
+  const bc = ('BroadcastChannel' in window) ? new BroadcastChannel('peg-settings') : null;
+  box.querySelector('#rfNow').addEventListener('click', async () => {
+    if (bc) bc.postMessage({type:'force-refresh'});
+    try {
+      const reg = await navigator.serviceWorker.getRegistration();
+      if (reg && (reg.active || reg.waiting)) {
+        (reg.waiting || reg.active).postMessage({type:'ADMIN_FORCE_REFRESH'});
+      }
+    } catch(e){}
+    location.reload();
+  });
+}
+
+
+// === Auto-Refresh Controls (Admin) ===
+function ensureRefreshControls(){
+  if (!overlay) return;
+  let box = document.getElementById('refreshControls');
+  if (box) return box;
+  box = document.createElement('div');
+  box.id = 'refreshControls';
+  box.className = 'card-like';
+  box.innerHTML = `
+    <h3>Auto-Refresh</h3>
+    <div class="refresh-row">
+      
+      
+      <span id="rfStatus" class="muted"></span>
+    </div>
+  `;
+  overlay.prepend(box);
+
+  const bc = ('BroadcastChannel' in window) ? new BroadcastChannel('peg-settings') : null;
+  function setMs(ms){
+    try{ localStorage.setItem('refreshWindowMs', String(ms)); }catch(e){}
+    if (bc) bc.postMessage({type:'refresh-config', ms});
+    const s = document.getElementById('rfStatus');
+    if (s) s.textContent = (ms===30000? 'Will refresh ~30s after activity.' : 'Will refresh every 6 hours.');
+  }
+  document.getElementById('rf30s').addEventListener('click', () => setMs(30000));
+  document.getElementById('rf6h').addEventListener('click', () => setMs(6*60*60*1000));
+  // initialize status
+  const cur = parseInt(localStorage.getItem('refreshWindowMs')||'',10);
+  if (!isNaN(cur)) { const s = document.getElementById('rfStatus'); if (s) s.textContent = (cur===30000? '30s mode.' : Math.round(cur/3600000)+'h mode.'); }
+  return box;
+}
+
+
 function openOverlay(){
+  ensureRefreshControls();
+  ensureRefreshNowControl();
+  ensureRefreshControls();
   buildTable(state.data || []);
   overlay.style.display = 'flex';
 }
@@ -20,6 +98,8 @@ function buildTable(arr){
       <td contenteditable>${row.Pressure ?? ''}</td>
       <td contenteditable>${row.PEG ?? ''}</td>
       <td contenteditable>${row.Dilution ?? ''}</td>
+      <td contenteditable>${row.Min ?? ''}</td>
+      <td contenteditable>${row.Max ?? ''}</td>
       <td><button class="del">X</button></td>
     `;
     tr.querySelector('.del').addEventListener('click', () => tr.remove());
@@ -55,6 +135,8 @@ function downloadJson(filename, obj){
 document.getElementById('addRow').addEventListener('click', () => {
   const tr = document.createElement('tr');
   tr.innerHTML = `
+    <td contenteditable></td>
+    <td contenteditable></td>
     <td contenteditable></td>
     <td contenteditable></td>
     <td contenteditable></td>
