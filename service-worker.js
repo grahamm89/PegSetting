@@ -6,6 +6,7 @@ const CACHE = 'peg-cache-' + SW_VERSION;
 const ASSETS = [
   SCOPE,
   SCOPE + 'index.html',
+  SCOPE + 'admin.html',
   SCOPE + 'manifest.json',
   SCOPE + 'css/style.css',
   SCOPE + 'js/app.js',
@@ -63,13 +64,14 @@ self.addEventListener('fetch', (event) => {
       try {
         const fresh = await fetch(event.request, { cache: 'reload' });
         const cache = await caches.open(CACHE);
-        await cache.put(SCOPE + 'index.html', fresh.clone());
+        await cache.put(SCOPE + 'index.html',
+  SCOPE + 'admin.html', fresh.clone());
         const clientsArr = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
         clientsArr.forEach(c => c.postMessage({ type: 'NEW_CONTENT' }));
         return fresh;
       } catch {
         const cache = await caches.open(CACHE);
-        return (await cache.match(SCOPE + 'index.html')) || Response.error();
+        return (await cache.match(url.pathname)) || (await cache.match(SCOPE + 'index.html')) || Response.error();
       }
     })());
     return;
