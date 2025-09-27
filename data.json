@@ -14,8 +14,8 @@
     "Pressure": "2.5 bar",
     "PEG": "J",
     "Dilution": 3,
-    "Min": "LL (2%)",
-    "Max": "II (4%)"
+    "Min": "L (2%)",
+    "Max": "I (4%)"
   },
   {
     "Product": "Suma Break up D3.5",
