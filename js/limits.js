@@ -1,8 +1,11 @@
 
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 // Load min/max limits and show for the selected product
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 <<<<<<< HEAD
@@ -11,6 +14,9 @@
 // Load min/max limits and show for the selected product
 >>>>>>> 0d327ff53cdd05ab12c6b23ee68e447a864cbeae
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -20,9 +26,12 @@
 
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   const byProduct = {};
 
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 <<<<<<< HEAD
@@ -31,6 +40,9 @@
 
 >>>>>>> 0d327ff53cdd05ab12c6b23ee68e447a864cbeae
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -43,8 +55,11 @@
       const rows = (s.data||[]).filter(r => r.Product===prod && r.Method===method && r.Pressure===pressure);
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       if (rows.length) return rows[0]; // assume first match
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 <<<<<<< HEAD
@@ -53,6 +68,9 @@
       if (rows.length) return rows[0]; // assume first match
 >>>>>>> 0d327ff53cdd05ab12c6b23ee68e447a864cbeae
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -62,7 +80,10 @@
 
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 <<<<<<< HEAD
@@ -84,6 +105,9 @@
         return `<div class="summary"><span class="pill">Range</span> ${mm.Min} <span class="arrow">→</span> ${mm.Max}${recText}</div>`;
 =======
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -99,6 +123,10 @@
         return `<div class="hint"><b>Range:</b> ${mm.Min} to ${mm.Max}${recText}</div>`;
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+>>>>>>> 0d327ff53cdd05ab12c6b23ee68e447a864cbeae
+>>>>>>> Stashed changes
 =======
 >>>>>>> 0d327ff53cdd05ab12c6b23ee68e447a864cbeae
 >>>>>>> Stashed changes
@@ -124,7 +152,10 @@
 
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 <<<<<<< HEAD
@@ -136,6 +167,9 @@
 })();
 =======
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -153,6 +187,10 @@
 })();
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+>>>>>>> 0d327ff53cdd05ab12c6b23ee68e447a864cbeae
+>>>>>>> Stashed changes
 =======
 >>>>>>> 0d327ff53cdd05ab12c6b23ee68e447a864cbeae
 >>>>>>> Stashed changes
