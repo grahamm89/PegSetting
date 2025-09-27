@@ -49,18 +49,3 @@ table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid #eee;pad
   margin-top:8px;
   background:#fff;
 }
-
-/* Admin limits editor */
-.card-like{
-  margin:10px 0;
-  padding:12px;
-  border:1px solid #e3e3e3;
-  border-radius:12px;
-  background:#fdfdfd;
-}
-.limits-row{ display:flex; gap:8px; align-items:center; margin:6px 0; }
-.limits-row input{ flex:1; padding:6px 8px; }
-.limits-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin:6px 0; }
-.limits-grid input{ width:100%; padding:6px 8px; }
-.limits-actions{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
-.muted{ opacity:.7; font-size:.9em; }
