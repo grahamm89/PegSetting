@@ -14,3 +14,25 @@ footer{color:var(--muted);font-size:12px;text-align:center;margin-top:10px}
 .table-wrap{max-height:60vh;overflow:auto;border:1px solid var(--border);border-radius:10px}
 table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid #eee;padding:8px;font-size:14px}td[contenteditable]{background:#fafafa}
 .hint{color:var(--muted);font-size:12px;margin-top:8px}.del{background:#ef4444;color:#fff;border:none;border-radius:6px;padding:6px 10px;cursor:pointer}
+
+/* Min/Max summary styling */
+.minmax .summary{
+  margin:10px 0 6px;
+  padding:10px 12px;
+  border:1px solid #e3e3e3;
+  border-radius:12px;
+  background:#fafafa;
+  font-size:0.95rem;
+  display:block;
+}
+.minmax .summary .pill{
+  display:inline-block;
+  padding:2px 8px;
+  border-radius:999px;
+  border:1px solid #ddd;
+  background:#fff;
+  font-weight:600;
+  margin-right:8px;
+}
+.minmax .summary .arrow{ margin:0 6px; font-weight:700; }
+.minmax .table{ margin-top:8px; background:#fff; }
